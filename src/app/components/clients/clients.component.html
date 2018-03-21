@@ -1,0 +1,41 @@
+<div class="row">
+  <!--Clients Header-->
+  <div class="col-md-6">
+    <h2><i class="fa fa-users"></i> Clients</h2>
+  </div>
+  <!--Balance-->
+  <div class="col-md-6">
+    <h5 class="text-right text-secondary">Total Owed: {{totalOwed | currency: "GBP": "symbol"}}</h5>
+  </div>
+</div>
+
+<!--Table-->
+<!--If there are clients (optional epicted by ?) then display table else display variable id in ng-template-->
+<table *ngIf="clients?.length > 0; else noClients" class="table table-striped">
+  <thead class="thead-inverse">
+    <tr>
+      <!--Set table headers-->
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Balance</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <!--loop through clients-->
+    <tr *ngFor="let client of clients">
+      <td>{{client.firstName}} {{client.lastName}}</td>
+      <td>{{client.email}}</td>
+      <td>{{client.phone}}</td>
+      <td>{{client.balance | currency: "GBP": "symbol"}}</td>
+      <td><a routerLink="client/{{client.id}}" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i> Details</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!--Display msg if no clients found; ID noClients declared in table element-->
+<ng-template #noClients>
+  <hr>
+  <h5>There are no clients in the system</h5>
+</ng-template>
